@@ -1,6 +1,6 @@
 {
   "name": "simple-debugger",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "SimpleDebugger",
   "main": "dist/simple-debugger.min.js",
   "dependencies": {},
