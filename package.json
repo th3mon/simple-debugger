@@ -1,6 +1,6 @@
 {
-  "name": "SimpleDebugger",
-  "version": "1.0.0",
+  "name": "simple-debugger",
+  "version": "1.0.4",
   "description": "SimpleDebugger",
   "main": "dist/simple-debugger.min.js",
   "dependencies": {},
@@ -35,8 +35,7 @@
     "build:demo": "webpack --env=demo --progress --profile --colors",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --watch --coverage",
-    "version-bump": "npm run set-tag-prefix && npm version"
+    "test:coverage": "jest --watch --coverage"
   },
   "repository": {
     "type": "git",
