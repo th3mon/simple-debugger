@@ -1,5 +1,5 @@
 {
-  "name": "SimpleDebugger",
+  "name": "simple-debugger",
   "version": "1.0.0",
   "description": "SimpleDebugger",
   "main": "dist/simple-debugger.min.js",
