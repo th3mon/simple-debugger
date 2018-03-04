@@ -4,11 +4,11 @@ const createMainContainer = id => {
   const mainContainer = document.createElement('div');
 
   mainContainer.setAttribute('id', `Logger-${id}`);
-  mainContainer.classList.add('Logger', `Logger-${id}`);
+  mainContainer.classList.add('logger', `logger-${id}`);
 
   return mainContainer;
 };
-const addMainClass = () => document.body.classList.add('LoggerOnBoard');
+const addMainClass = () => document.body.classList.add('simple-debugger');
 
 class Logger {
   constructor (id) {
@@ -36,7 +36,7 @@ class Logger {
 
   add (message) {
     const messageConfig = {
-      id: `LoggerMessage-${this.id}-${this.messageId}`,
+      id: `logger-${this.id}__message-${this.messageId}`,
       text: message
     };
 
@@ -53,7 +53,7 @@ class Logger {
 
     pararaph.setAttribute('id', id);
     pararaph.innerText = text;
-    pararaph.classList.add(id, 'Logger__message');
+    pararaph.classList.add(id, 'logger__message');
 
     return pararaph;
   }
@@ -78,7 +78,7 @@ class Logger {
   }
 
   removeFromDOM (messageId) {
-    const message = document.body.querySelector(`.LoggerMessage-${this.id}-${messageId}`);
+    const message = document.body.querySelector(`.logger-${this.id}__message-${messageId}`);
 
     removeNode(message);
   }

@@ -7,7 +7,7 @@ let notModifiedBodyPaddingTop;
 const removeNode = node => node.parentNode.removeChild(node);
 const removeLogger = () =>
   document.body
-    .querySelectorAll('.Logger')
+    .querySelectorAll('.logger')
     .forEach( removeNode );
 
 beforeEach(() => {
@@ -24,7 +24,7 @@ describe('constructor', () => {
   );
 
   it('should add main container to DOM', () =>
-    expect(document.body.querySelector('.Logger')).toBeTruthy()
+    expect(document.body.querySelector('.logger')).toBeTruthy()
   );
 
   it('should main container have id', () => {
@@ -48,8 +48,8 @@ describe('constructor', () => {
     expect(logger.logError).toHaveBeenCalled();
   });
 
-  it('should add className "loggerOnBoard" to body', () =>
-    expect(document.body.classList.contains('LoggerOnBoard')).toBe(true)
+  it('should add className "simple-debugger" to body', () =>
+    expect(document.body.classList.contains('simple-debugger')).toBe(true)
   );
 });
 
@@ -60,10 +60,24 @@ describe('add message', () => {
     expect(logger.messages.length).toEqual(1);
   });
 
+  it('should has "logger__message" class name', () => {
+    logger.add('Some message');
+    const messageElement = document.getElementById(logger.messages[0].id);
+
+    expect(messageElement.classList.contains('logger__message')).toBe(true);
+  });
+
+  it('should has "logger-666__message-0" class name', () => {
+    logger.add('Some message');
+    const messageElement = document.getElementById(logger.messages[0].id);
+
+    expect(messageElement.classList.contains('logger-666__message-0')).toBe(true);
+  });
+
   it('should have text', () => {
     logger.add('Some message');
 
-    const messageId = `LoggerMessage-${logger.id}-0`;
+    const messageId = `logger-${logger.id}__message-0`;
     const message = logger.messages.find(item => item.id === messageId);
 
     expect(message.text).toBe('Some message');
@@ -72,7 +86,7 @@ describe('add message', () => {
   it('should have id', () => {
     logger.add('Some message');
 
-    const messageId = `LoggerMessage-${logger.id}-0`;
+    const messageId = `logger-${logger.id}__message-0`;
     const message = logger.messages.find(item => item.id === messageId);
 
     expect(message.id).toEqual(messageId);
@@ -87,8 +101,8 @@ describe('add message', () => {
   it('should insert to DOM', () => {
     logger.add('Some message');
 
-    const messageElement = document.body.querySelector('.Logger__message');
-    const messageId = `LoggerMessage-${logger.id}-0`;
+    const messageElement = document.body.querySelector('.logger__message');
+    const messageId = `logger-${logger.id}__message-0`;
 
     expect(messageElement).toBeTruthy();
     expect(messageElement.innerText).toBe('Some message');
@@ -117,7 +131,7 @@ describe('add message', () => {
     logger.add('Message nr 2');
     logger.add('Message nr 3');
 
-    const messages = document.body.querySelectorAll('.Logger__message');
+    const messages = document.body.querySelectorAll('.logger__message');
 
     expect(messages.length).toEqual(3);
   });
@@ -127,7 +141,7 @@ describe('add message', () => {
     logger.add('Message nr 2');
     logger.add('Message nr 3');
 
-    const secondMessage = document.body.querySelector('.Logger__message:nth-child(2)');
+    const secondMessage = document.body.querySelector('.logger__message:nth-child(2)');
 
     expect(secondMessage.innerText).toEqual('Message nr 2');
   });
@@ -147,12 +161,12 @@ describe('remove message', () => {
 
   it('should remove message from DOM', () => {
     logger.add('Some message');
-    let message = document.body.querySelector('.Logger__message');
+    let message = document.body.querySelector('.logger__message');
 
     expect(message).toBeTruthy();
 
     logger.remove(messageId);
-    message = document.body.querySelector('.Logger__message');
+    message = document.body.querySelector('.logger__message');
 
     expect(message).toBeFalsy();
   });
@@ -165,9 +179,9 @@ describe('remove message', () => {
     const secondMessageId = 1;
     logger.remove(secondMessageId);
 
-    const firstMessage = document.body.querySelector('.LoggerMessage-666-0');
-    const secondMessage = document.body.querySelector('.LoggerMessage-666-1');
-    const thirdMessage = document.body.querySelector('.LoggerMessage-666-2');
+    const firstMessage = document.body.querySelector('.logger-666__message-0');
+    const secondMessage = document.body.querySelector('.logger-666__message-1');
+    const thirdMessage = document.body.querySelector('.logger-666__message-2');
 
     expect(firstMessage).toBeTruthy();
     expect(secondMessage).toBeFalsy();
@@ -223,12 +237,12 @@ describe('createMessageElement', () => {
   let messageElement;
 
   beforeEach(() => {
-    loggerId = logger.id;
-    messageId = logger.messageId;
+    loggerId = 666;
+    messageId = 0;
     messageContent = 'Some message';
 
     messageConfig = {
-      id: `LoggerMessage-${loggerId}-${messageId}`,
+      id: `logger-${loggerId}__message-${messageId}`,
       text: messageContent
     };
 
@@ -239,8 +253,18 @@ describe('createMessageElement', () => {
     expect(messageElement.toString()).toBe('[object HTMLParagraphElement]');
   });
 
+  it('should has "logger__message" class name', () => {
+    expect(messageElement.classList.contains('logger__message')).toBe(true);
+  });
+
+  it(`should has "logger-${loggerId}__message-${messageId}" class name`, () => {
+    const id = `logger-${loggerId}__message-${messageId}`;
+
+    expect(messageElement.classList.contains(id)).toBe(true);
+  });
+
   it('should create message with given id', () => {
-    const id = `LoggerMessage-${loggerId}-${messageId}`;
+    const id = `logger-${loggerId}__message-${messageId}`;
 
     expect(messageElement.getAttribute('id')).toEqual(id);
   });
@@ -250,7 +274,7 @@ describe('createMessageElement', () => {
   });
 
   it('should create message with given id as className', () => {
-    const id = `LoggerMessage-${loggerId}-${messageId}`;
+    const id = `logger-${loggerId}__message-${messageId}`;
 
     expect(messageElement.classList.contains(id)).toBe(true);
   });
