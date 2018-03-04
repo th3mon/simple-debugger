@@ -3,14 +3,14 @@ import { removeNode } from './dom';
 const createMainContainer = id => {
   const mainContainer = document.createElement('div');
 
-  mainContainer.setAttribute('id', `SimpleDebugger-${id}`);
-  mainContainer.classList.add('SimpleDebugger', `SimpleDebugger-${id}`);
+  mainContainer.setAttribute('id', `Logger-${id}`);
+  mainContainer.classList.add('Logger', `Logger-${id}`);
 
   return mainContainer;
 };
-const addMainClass = () => document.body.classList.add('SimpleDebuggerOnBoard');
+const addMainClass = () => document.body.classList.add('LoggerOnBoard');
 
-class SimpleDebugger {
+class Logger {
   constructor (id) {
     const getMainContainerHeight = () => Math.max(
       this.mainContainer.offsetHeight,
@@ -36,7 +36,7 @@ class SimpleDebugger {
 
   add (message) {
     const messageConfig = {
-      id: `SimpleDebuggerMessage-${this.id}-${this.messageId}`,
+      id: `LoggerMessage-${this.id}-${this.messageId}`,
       text: message
     };
 
@@ -53,7 +53,7 @@ class SimpleDebugger {
 
     pararaph.setAttribute('id', id);
     pararaph.innerText = text;
-    pararaph.classList.add(id, 'SimpleDebugger__message');
+    pararaph.classList.add(id, 'Logger__message');
 
     return pararaph;
   }
@@ -78,7 +78,7 @@ class SimpleDebugger {
   }
 
   removeFromDOM (messageId) {
-    const message = document.body.querySelector(`.SimpleDebuggerMessage-${this.id}-${messageId}`);
+    const message = document.body.querySelector(`.LoggerMessage-${this.id}-${messageId}`);
 
     removeNode(message);
   }
@@ -88,4 +88,4 @@ class SimpleDebugger {
   }
 }
 
-export default SimpleDebugger;
+export default Logger;

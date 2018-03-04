@@ -1,4 +1,4 @@
-.SimpleDebugger {
+.Logger {
     background-color: #FFFFFF;
     border-bottom: 2px solid #FF0000;
     left: 0;
@@ -9,6 +9,6 @@
     height: 100px;
     overflow-y: scroll;
 }
-.SimpleDebuggerOnBoard {
+.LoggerOnBoard {
 
 }
