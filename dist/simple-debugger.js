@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "701206c9cd487fda9891"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1ac3c288777db4b3586a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -768,20 +768,21 @@ var removeNode = exports.removeNode = function removeNode(node) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Logger = undefined;
 
 __webpack_require__("./css/main.css");
 
-var _simpleDebugger = __webpack_require__("./src/simple-debugger.js");
+var _logger = __webpack_require__("./src/logger.js");
 
-var _simpleDebugger2 = _interopRequireDefault(_simpleDebugger);
+var _logger2 = _interopRequireDefault(_logger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _simpleDebugger2.default;
+exports.Logger = _logger2.default;
 
 /***/ }),
 
-/***/ "./src/simple-debugger.js":
+/***/ "./src/logger.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -802,20 +803,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var createMainContainer = function createMainContainer(id) {
   var mainContainer = document.createElement('div');
 
-  mainContainer.setAttribute('id', 'SimpleDebugger-' + id);
-  mainContainer.classList.add('SimpleDebugger', 'SimpleDebugger-' + id);
+  mainContainer.setAttribute('id', 'Logger-' + id);
+  mainContainer.classList.add('logger', 'logger-' + id);
 
   return mainContainer;
 };
 var addMainClass = function addMainClass() {
-  return document.body.classList.add('SimpleDebuggerOnBoard');
+  return document.body.classList.add('simple-debugger');
 };
 
-var SimpleDebugger = function () {
-  function SimpleDebugger(id) {
+var Logger = function () {
+  function Logger(id) {
     var _this = this;
 
-    _classCallCheck(this, SimpleDebugger);
+    _classCallCheck(this, Logger);
 
     var getMainContainerHeight = function getMainContainerHeight() {
       return Math.max(_this.mainContainer.offsetHeight, _this.mainContainer.clientHeight, 0);
@@ -839,11 +840,11 @@ var SimpleDebugger = function () {
     this.moveContentByHeightOfMainContainer();
   }
 
-  _createClass(SimpleDebugger, [{
+  _createClass(Logger, [{
     key: 'add',
     value: function add(message) {
       var messageConfig = {
-        id: 'SimpleDebuggerMessage-' + this.id + '-' + this.messageId,
+        id: 'logger-' + this.id + '__message-' + this.messageId,
         text: message
       };
 
@@ -864,7 +865,7 @@ var SimpleDebugger = function () {
 
       pararaph.setAttribute('id', id);
       pararaph.innerText = text;
-      pararaph.classList.add(id, 'SimpleDebugger__message');
+      pararaph.classList.add(id, 'logger__message');
 
       return pararaph;
     }
@@ -890,7 +891,7 @@ var SimpleDebugger = function () {
   }, {
     key: 'removeFromDOM',
     value: function removeFromDOM(messageId) {
-      var message = document.body.querySelector('.SimpleDebuggerMessage-' + this.id + '-' + messageId);
+      var message = document.body.querySelector('.logger-' + this.id + '__message-' + messageId);
 
       (0, _dom.removeNode)(message);
     }
@@ -901,10 +902,10 @@ var SimpleDebugger = function () {
     }
   }]);
 
-  return SimpleDebugger;
+  return Logger;
 }();
 
-exports.default = SimpleDebugger;
+exports.default = Logger;
 
 /***/ })
 
