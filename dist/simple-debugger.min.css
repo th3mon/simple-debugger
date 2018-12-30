@@ -1,1 +1,14 @@
-.logger{background-color:#fff;border-bottom:2px solid red;left:0;position:fixed;top:0;width:100%;height:100px;overflow-y:scroll}
+.logger {
+  background-color: #FFFFFF;
+  border-bottom: 2px solid #FF0000;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  height: 100px;
+  overflow-y: scroll;
+}
+.simple-debugger {
+
+}
