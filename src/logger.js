@@ -1,5 +1,6 @@
 import { removeNode } from './dom';
 
+const mainClass = 'simple-debugger';
 const createMainContainer = id => {
   const mainContainer = document.createElement('div');
 
@@ -8,7 +9,8 @@ const createMainContainer = id => {
 
   return mainContainer;
 };
-const addMainClass = () => document.body.classList.add('simple-debugger');
+const addMainClass = () => document.body.classList.add(mainClass);
+const hasMainClass = () => document.body.classList.contains(mainClass);
 
 class Logger {
   constructor (id) {
@@ -27,11 +29,14 @@ class Logger {
     document.body.appendChild(this.mainContainer);
     this.mainContainer.height = getMainContainerHeight();
 
-    addMainClass();
 
     window.onerror = (e, src, line) => this.logError(e, src, line);
 
-    this.moveContentByHeightOfMainContainer();
+    if (!hasMainClass()) {
+      this.moveContentByHeightOfMainContainer();
+    }
+
+    addMainClass();
   }
 
   add (message) {
@@ -88,4 +93,7 @@ class Logger {
   }
 }
 
-export default Logger;
+export {
+  mainClass,
+  Logger as default
+}

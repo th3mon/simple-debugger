@@ -1,4 +1,4 @@
-import Logger from '../src/logger';
+import Logger, { mainClass } from '../src/logger';
 
 let logger;
 let loggerId = 666;
@@ -37,6 +37,15 @@ describe('constructor', () => {
     const bodyPaddingTop = Number.parseInt(document.body.style.paddingTop, 10) || 0;
 
     expect(bodyPaddingTop - logger.mainContainer.height).toEqual(notModifiedBodyPaddingTop);
+  });
+
+  it('should NOT move content by main containers height', () => {
+    const bodyPaddingTop = Number.parseInt(document.body.style.paddingTop, 10) || 0;
+
+    document.body.classList.add(mainClass);
+    expect(bodyPaddingTop).toEqual(notModifiedBodyPaddingTop);
+
+    document.body.classList.remove(mainClass);
   });
 
   it('should set id', () => expect(logger.id).toEqual(666) );
