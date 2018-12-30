@@ -1,16 +1,18 @@
 import { removeNode } from './dom';
 
+const mainClass = 'simple-debugger';
 const createMainContainer = id => {
   const mainContainer = document.createElement('div');
 
-  mainContainer.setAttribute('id', `SimpleDebugger-${id}`);
-  mainContainer.classList.add('SimpleDebugger', `SimpleDebugger-${id}`);
+  mainContainer.setAttribute('id', `Logger-${id}`);
+  mainContainer.classList.add('logger', `logger-${id}`);
 
   return mainContainer;
 };
-const addMainClass = () => document.body.classList.add('SimpleDebuggerOnBoard');
+const addMainClass = () => document.body.classList.add(mainClass);
+const hasMainClass = () => document.body.classList.contains(mainClass);
 
-class SimpleDebugger {
+class Logger {
   constructor (id) {
     const getMainContainerHeight = () => Math.max(
       this.mainContainer.offsetHeight,
@@ -27,16 +29,19 @@ class SimpleDebugger {
     document.body.appendChild(this.mainContainer);
     this.mainContainer.height = getMainContainerHeight();
 
-    addMainClass();
 
     window.onerror = (e, src, line) => this.logError(e, src, line);
 
-    this.moveContentByHeightOfMainContainer();
+    if (!hasMainClass()) {
+      this.moveContentByHeightOfMainContainer();
+    }
+
+    addMainClass();
   }
 
   add (message) {
     const messageConfig = {
-      id: `SimpleDebuggerMessage-${this.id}-${this.messageId}`,
+      id: `logger-${this.id}__message-${this.messageId}`,
       text: message
     };
 
@@ -53,7 +58,7 @@ class SimpleDebugger {
 
     pararaph.setAttribute('id', id);
     pararaph.innerText = text;
-    pararaph.classList.add(id, 'SimpleDebugger__message');
+    pararaph.classList.add(id, 'logger__message');
 
     return pararaph;
   }
@@ -78,7 +83,7 @@ class SimpleDebugger {
   }
 
   removeFromDOM (messageId) {
-    const message = document.body.querySelector(`.SimpleDebuggerMessage-${this.id}-${messageId}`);
+    const message = document.body.querySelector(`.logger-${this.id}__message-${messageId}`);
 
     removeNode(message);
   }
@@ -88,4 +93,7 @@ class SimpleDebugger {
   }
 }
 
-export default SimpleDebugger;
+export {
+  mainClass,
+  Logger as default
+}

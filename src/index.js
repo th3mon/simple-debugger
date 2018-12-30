@@ -1,4 +1,4 @@
 import '../css/main.css';
-import SimpleDebugger from './simple-debugger';
+import Logger from './logger';
 
-export default SimpleDebugger;
+export { Logger };
