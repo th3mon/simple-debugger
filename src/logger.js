@@ -96,4 +96,4 @@ class Logger {
 export {
   mainClass,
   Logger as default
-}
+};
